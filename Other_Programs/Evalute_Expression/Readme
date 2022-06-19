@@ -1,4 +1,6 @@
-/*Given a string s representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation.
+/*
+File Name : class_Evaluate.cpp
+Given a string s representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation.
 
 Note: You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as eval().
 
@@ -63,3 +65,12 @@ All the integers in the expression are non-negative integers in the range [0, 23
 The answer is guaranteed to fit in a 32-bit integer.*/
 
 //Ans : calculate(sting str);
+
+
+/* 
+    File Name : Prefix_PostFix_Infix.cpp
+    Created by Jyoti Ranjan on 16/06/22.
+    INFIX TO POSTFIX    :         Infix is A+(B-C)^(F*G) Postfix is : ABC-FG*^+
+    INFIX TO PREFIX    :
+        Infix is A+(B-C)^(F*G) Prefix is : +A^-BC*FG
+*/
