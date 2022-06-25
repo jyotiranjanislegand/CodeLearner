@@ -70,13 +70,11 @@ The answer is guaranteed to fit in a 32-bit integer.*/
 /* 
     File Name : Prefix_PostFix_Infix.cpp
     Created by Jyoti Ranjan on 16/06/22.
-    //
-//  Prefix_PostFix_Infix.cpp
-//  Created by Jyoti Ranjan on 16/06/22.
-//
+    Prefix_PostFix_Infix.cpp
+    Created by Jyoti Ranjan on 16/06/22.
 
 
-   STRING :A+(B-C)^(F*G)
+    STRING :A+(B-C)^(F*G)
     Infix : A+(B-C)^(F*G) to Prefix: +A^-BC*FG
     Infix: A+(B-C)^(F*G) to Postfix : ABC-FG*^+
     PostFix: "ABC-FG*^+" to Infix: "(A+((B-C)^(F*G)))"
