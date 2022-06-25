@@ -1,11 +1,26 @@
-/*
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+//
 //  Prefix_PostFix_Infix.cpp
 //  Created by Jyoti Ranjan on 16/06/22.
-    INFIX TO POSTFIX    :
-        Infix is A+(B-C)^(F*G) Postfix is : ABC-FG*^+
-    INFIX TO PREFIX    :
-        Infix is A+(B-C)^(F*G) Prefix is : +A^-BC*FG
-*/
+//
+/*
+
+   STRING :A+(B-C)^(F*G)
+    Infix : A+(B-C)^(F*G) to Prefix: +A^-BC*FG
+    Infix: A+(B-C)^(F*G) to Postfix : ABC-FG*^+
+    PostFix: "ABC-FG*^+" to Infix: "(A+((B-C)^(F*G)))"
+    
+    PreFix: "+A^-BC*FG" to Infix: "(A+((B-C)^(F*G)))"
+    
+    PostFix: "ABC-FG*^+" to Prefix: "+A^-BC*FG"
+ */
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -25,7 +40,7 @@ bool isOperator(char c)
     return (!isalpha(c) && !isdigit(c));
 }
 
-bool isArithmeticAperator(char ch)
+bool isArithmeticOperator(char ch)
 {
     if(ch == '+' || ch == '-' || ch == '/' || ch == '*')
         return true;
@@ -62,7 +77,7 @@ char getCombination(char ch)
         else if(ch == '}')
             c = '{';
     }
-            return c;
+    return c;
 }
 bool isEndingBracket(char ch)
 {
@@ -70,51 +85,16 @@ bool isEndingBracket(char ch)
         return true;
     return false;
 }
-string infixToPrefix(string str)
-{
-    if(str.empty())
-        return "Empty string";
-    reverse(str.begin(),str.end());
-    stack<char> operators;
-    string output="";
-    for(auto ch:str)
-    {
-        if(isArithmeticAperator(ch) || isEndingBracket(ch))
-            operators.push(ch);
-        else if(isStartingBracket(ch))
-        {
-            char c = getCombination(ch);
-            char top = operators.top();
-            while(!operators.empty() &&  c != top)
-            {
-                output += top;
-                operators.pop();
-                top = operators.top();
-            }
-            operators.pop();
-        }
-        else
-            output += ch;
-    }
-    while(!operators.empty())
-    {
-        output += operators.top();
-        operators.pop();
-    }
-    reverse(output.begin(),output.end());
-    return output;
-}
 
-string infixToPostfix(string infix)
+string infixToPostfix(string infix)                 //              (A+(B*D)-E-F)
 {
     infix = '(' + infix + ')';
     stack<char> char_stack;
     string output;
     for(auto c:infix)
     {
-        if(isalpha(c) || isdigit(c))
+        if(isalpha(c) || isdigit(c))                //   ABD*+E-F-                 stack
         {
-            
             output += c;
         }
         else if(isStartingBracket(c))
@@ -149,23 +129,93 @@ string infixToPostfix(string infix)
 }
 string infixToPreFix(string infix)
 {
-    reverse(infix.begin(),infix.end());
+    //A+(C*D)+E
+    reverse(infix.begin(),infix.end());        //E+)D*C(+A
     for(int i = 0;i<infix.length();i++)
     {
-        if(infix[i] == '(')
+        if(infix[i] == '(')                     // E+(D*C)+A E+DC*A+ +A*CD+E
             infix[i] = ')';
-        else if(infix[i] == ')')
+        else if(infix[i] == ')')                // E+DC*A+
             infix[i] = '(';
+        else if(infix[i] == '[')
+            infix[i] = ']';
+        else if(infix[i] == ']')
+            infix[i] = '[';
+        if(infix[i] == '{')
+            infix[i] = '}';
+        else if(infix[i] == '}')
+            infix[i] = '{';
     }
-    string output = infixToPostfix(infix);
-    reverse(output.begin(),output.end());
+    string output = infixToPostfix(infix);      // E+DC*A+
+    reverse(output.begin(),output.end());       // +A*CD+E
     return output;
+}
+string postfixToinfix(string _postFixExp)
+{
+    stack<string> operands;
+    
+    for(auto ch:_postFixExp)
+    {
+        if(isalpha(ch) || isdigit(ch))
+        {
+            string op(1,ch);
+            operands.push(op);
+        }
+        else if(isArithmeticOperator(ch) || (ch == '^'))
+        {
+                string c1 = operands.top();
+                operands.pop();
+                string c2 = operands.top();
+                operands.pop();
+                string temp = '(' + c2 + ch + c1 +')' ;
+                operands.push(temp);
+        }
+    }
+    string res = operands.top();
+    return res;
+}
+
+string prefixToinfix(string _preFixExp)
+{
+    reverse(_preFixExp.begin(),_preFixExp.end());
+    _preFixExp = postfixToinfix(_preFixExp);
+    reverse(_preFixExp.begin(),_preFixExp.end());
+    for(int i = 0;i<_preFixExp.length();i++)
+    {
+        if(_preFixExp[i] == '(')                     // E+(D*C)+A E+DC*A+ +A*CD+E
+            _preFixExp[i] = ')';
+        else if(_preFixExp[i] == ')')                // E+DC*A+
+            _preFixExp[i] = '(';
+        else if(_preFixExp[i] == '[')
+            _preFixExp[i] = ']';
+        else if(_preFixExp[i] == ']')
+            _preFixExp[i] = '[';
+        if(_preFixExp[i] == '{')
+            _preFixExp[i] = '}';
+        else if(_preFixExp[i] == '}')
+            _preFixExp[i] = '{';
+    }
+    return _preFixExp;
 }
 
 int main()
 {
     string str = "A+(B-C)^(F*G)";
-    cout<<"Prifix: "<< str <<" is : "<<infixToPreFix(str)<<endl;
-    cout<<"Postfix: "<< str <<" is : "<<infixToPostfix(str)<<endl;
+    
+    cout<<"STRING :"<< str <<endl;
+    
+    
+    cout<<"Infix : "<< str <<" to Prefix: "<<infixToPreFix(str)<<endl;
+    
+    cout<<"Infix: "<< str <<" to Postfix : "<<infixToPostfix(str)<<endl;
+    
+    cout<<"PostFix: \""<<infixToPostfix(str)<<"\" to Infix: \""<<postfixToinfix(infixToPostfix(str))<<"\"\n"<<endl;
+    
+    cout<<"PreFix: \""<<infixToPreFix(str)<<"\" to Infix: \""<<prefixToinfix(infixToPreFix(str))<<"\"\n"<<endl;
+    
+    cout<<"PostFix: \""<<infixToPostfix(str)<<"\" to Prefix: \""<<infixToPreFix(postfixToinfix(infixToPostfix(str)))<<"\"\n"<<endl;
+   
+    cout<<"PreFix: \""<<infixToPreFix(str)<<"\" to Postfix: \""<<postfixToinfix(infixToPreFix(str))<<"\"\n"<<endl;
+
     return 0;
 }
