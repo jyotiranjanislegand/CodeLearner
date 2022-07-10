@@ -92,6 +92,154 @@ class SlidingWindow
 
      */
     void findLongestSequence(int arr[], int n, int k);
+    
+    /*Find minimum sum subarray of size `k`
+     
+     Given an integer array, find the minimum sum subarray of size k, where k is a positive integer.
+
+     For example,
+
+     Input: {10, 4, 2, 5, 6, 3, 8, 1}, k = 3
+      
+     Output: Minimum sum subarray of size 3 is (1, 3)
+     */
+     void findSubarray(int arr[], int n, int k);
+    
+     /*
+      Find a subarray having the given sum in an integer array
+      Given an integer array, find a subarray having a given sum in it.
+
+      For example,
+
+      Input: nums[] = {2, 6, 0, 9, 7, 3, 1, 4, 1, 10}, target = 15
+      Output: {6, 0, 9}
+       
+       
+      Input: nums[] = {0, 5, -7, 1, -4, 7, 6, 1, 4, 1, 10}, target = 15
+      Output: {1, -4, 7, 6, 1, 4} or {4, 1, 10}
+       
+       
+      Input: nums[] = {0, 5, -7, 1, -4, 7, 6, 1, 4, 1, 10}, target = -3
+      Output: {1, -4} or {-7, 1, -4, 7}
+      */
+     void findSubArrayGivenSum(int nums[], int n, int target);
+    
+    /*
+     Find the smallest subarray length whose sum of elements is greater than `k`
+     Given an array of positive integers, find the smallest subarray’s length whose sum of elements is greater than a given number k.
+
+     For example,
+
+     Input: {1, 2, 3, 4, 5, 6, 7, 8}, k = 20
+     Output: The smallest subarray length is 3
+     Explanation: The smallest subarray with sum > 20 is {6, 7, 8}
+      
+      
+     Input: {1, 2, 3, 4, 5, 6, 7, 8}, k = 7
+     Output: The smallest subarray length is 1
+     Explanation: The smallest subarray with sum > 7 is {8}
+      
+      
+     Input: {1, 2, 3, 4, 5, 6, 7, 8}, k = 21
+     Output: The smallest subarray length is 4
+     Explanation: The smallest subarray with sum > 21 is {5, 6, 7, 8}
+      
+      
+     Input: {1, 2, 3, 4, 5, 6, 7, 8}, k = 40
+     Output: No subarray exists
+     */
+    int findSmallestSubarrayLen(int arr[], int n, int k);
+    
+    /*
+     Find the count of distinct elements in every subarray of size `k`
+     Given an array and an integer k, find the count of distinct elements in every subarray of size k.
+     Input:
+      
+     arr[] = { 2, 1, 2, 3, 2, 1, 4, 5 };
+     k = 5;
+      
+     Output:
+      
+     The count of distinct elements in subarray { 2, 1, 2, 3, 2 } is 3
+     The count of distinct elements in subarray { 1, 2, 3, 2, 1 } is 3
+     The count of distinct elements in subarray { 2, 3, 2, 1, 4 } is 4
+     The count of distinct elements in subarray { 3, 2, 1, 4, 5 } is 5
+    */
+    void findDistinctCountUsingSet(vector<int> const &input,int k);
+    void findDistinctCountUsingMap(vector<int> const &input,int k);
+    
+    /*
+     Print all subarrays of an array having distinct elements
+     Given an integer array, print all maximum size subarrays having all distinct elements in them.
+
+     For example,
+
+     Input: A[] = { 5, 2, 3, 5, 4, 3 }
+      
+     Output: The largest subarrays with all distinct elements are:
+      
+     { 5, 2, 3 }
+     { 2, 3, 5, 4 }
+     { 5, 4, 3 }
+    */
+    
+    void printSubarray(int A[], int i, int j, int n);
+    void calculate(int A[], int n);
+    /*
+     Count distinct absolute values in a sorted array
+     Given an array of sorted integers that may contain several duplicate elements, count the total number of distinct absolute values in it.
+
+     For example,
+
+     Input: { -1, -1, 0, 1, 1, 1 }
+     Output: The total number of distinct absolute values is 2 (0 and 1)
+      
+      
+     Input: { -2, -1, 0, 1, 2, 3 }
+     Output: The total number of distinct absolute values is 4 (0, 1, 2 and 3)
+      
+      
+     Input: { -1, -1, -1, -1 }
+     Output: The total number of distinct absolute values is 1 (only 1)
+
+     */
+    int findDistinctCountUsingSet(vector<int> &input);
+    int findDistinctCountWitUsingSet(vector<int> const &input);
+    
+    /*Given an array and a positive number k, check whether the array contains any duplicate elements within the range k. If k is more than the array’s size, the solution should check for duplicates in the complete array.
+     
+     For example,
+
+     Input:
+      
+     nums[] = { 5, 6, 8, 2, 4, 6, 9 }
+     k = 4
+      
+     Output: Duplicates found
+      
+     (element 6 repeats at distance 4 which is <= k)
+      
+      
+     Input:
+      
+     nums[] = { 5, 6, 8, 2, 4, 6, 9 }
+     k = 2
+      
+     Output: No duplicates were found
+      
+     (element 6 repeats at distance 4 which is > k)
+      
+      
+     Input:
+      
+     nums[] = { 1, 2, 3, 2, 1 }
+     k = 7
+      
+     Output: Duplicates found
+      
+     (element 1 and 2 repeats at distance 4 and 2, respectively which are both <= k)*/
+    bool contains(unordered_set<int> const &set, int x);
+    bool hasDuplicate(vector<int> &input, int k);
 };
 
 string SlidingWindow::FindLongestSubStringWithKDistinctCharcters(string str, int k, int len)
@@ -253,6 +401,221 @@ void SlidingWindow::findLongestSequence(int arr[], int n, int k)
     printf("The longest sequence has length %d from index %d to %d", window, leftindex, (leftindex + window - 1));
 }
 
+void SlidingWindow::findSubarray(int arr[], int n, int k)
+{
+    int left_index = 0;
+    int sum=0, start_index=-1;
+    int min_sum=INT_MAX;
+    
+    if(k>n)
+    {
+        cout<<"Invalid Array Size:"<<endl;
+        return ;
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+        sum += arr[i];
+        if((i-k) == left_index)
+        {
+            sum -= arr[left_index];
+            //cout<<"SUM: "<<sum<<endl;
+            left_index++;
+            if(sum<min_sum)
+            {
+                min_sum = sum;
+                start_index = left_index;
+            }
+        }
+        
+    }
+    cout<<"Minimum sum is: "<<min_sum<<endl;
+    cout<<"Minimum sum subarray of a given size "<<k<<" starts from "<<start_index<<" to "<<start_index+k-1<<endl;
+}
+
+void SlidingWindow::findSubArrayGivenSum(int nums[], int n, int target)
+{
+    int windowsum = 0;
+    //int low = 0, high=0;
+    for(int high=0,low=0; low <n ;low++)
+    {
+        while((windowsum < target) && (high < n))
+        {
+            windowsum += nums[high];
+            high++;
+        }
+        if(windowsum == target)
+        {
+            cout<<"Subarray Found from "<<low<<" to "<<high-1<<endl;
+        }
+        windowsum -= nums[low];
+    }
+}
+
+int SlidingWindow::findSmallestSubarrayLen(int arr[], int n, int k)
+{
+    int left_index=0;
+    int len = INT_MAX;
+    int sum = 0;
+    for(int right_index=0; right_index < n; right_index++)
+    {
+        sum += arr[right_index];
+        while((sum > k) && (left_index <= right_index))
+        {
+            len = min(len,(right_index - left_index) + 1);
+            sum -= arr[left_index];
+            left_index++;
+        }
+    }
+    if(len == INT_MAX)
+        return 0;
+    return len;
+}
+
+void SlidingWindow::findDistinctCountUsingSet(vector<int> const &input,int k)
+{
+    for(int i=0; i<input.size(); i++)
+    {
+        unordered_set<int> distinct(input.begin()+i ,input.begin()+i+k);
+        cout<<"The count of distinct element of sub array ["<< i <<", "<<(i+k - 1)<<"] is "<<distinct.size()<<endl;
+    }
+}
+void SlidingWindow::findDistinctCountUsingMap(vector<int> const &input,int k)
+{
+    unordered_map<int,int> freq;
+    int distinct=0;
+    for(int i=0; i<input.size(); i++)
+    {
+        if(i>=k)
+        {
+            freq[input[i-k]]--;
+            if(freq[input[i-k]] == 0)
+            {
+                distinct--;
+            }
+        }
+        freq[input[i]]++;
+        if(freq[input[i]] == 1)
+        {
+            distinct++;
+        }
+        if(i >= k-1)
+        {
+            cout<<"The count of distinct elements in subarray [" <<(i-k+1)<<", "<<i<<"] is "<<distinct<<endl;
+        }
+    }
+}
+
+void SlidingWindow::printSubarray(int A[], int i, int j, int n)
+{
+    if (i < 0 || i > j || j >= n) {        // invalid input
+            return;
+    }
+    for (int index = i; index < j; index++) {
+            cout << A[index] << ", ";
+        }
+    cout << A[j] << endl;
+}
+
+void  SlidingWindow::calculate(int A[], int n)
+{
+    unordered_map<int,bool> visited;
+    int right = 0 , left = 0;
+    while(right < n)
+    {
+        while(right < n && !visited[A[right]])
+        {
+            visited[A[right]] = true;
+            right ++;
+        }
+        printSubarray(A, left, right-1, n);
+        while(right<n && visited[A[right]])
+        {
+            visited[A[left]] = false;
+            left++;
+        }
+    }
+}
+
+bool SlidingWindow::contains(unordered_set<int> const &set, int x)
+{
+    return set.find(x) != set.end();
+}
+
+bool SlidingWindow::hasDuplicate(vector<int> &input, int k)
+{
+    unordered_set<int> window;
+    for(int i=0; i<input.size(); i++)
+    {
+        if(contains(window, input[i]))
+        {
+            return true;
+        }
+        window.insert(input[i]);
+        if(i>=k)
+        {
+            window.erase(input[i-k]);
+        }
+    }
+    return false;
+}
+
+int SlidingWindow::findDistinctCountUsingSet(vector<int> &input)
+{
+    unordered_set<int> distinctSet;
+    for(int const &i: input)
+    {
+        distinctSet.insert(abs(i));
+    }
+    return (int)distinctSet.size();
+}
+int  SlidingWindow::findDistinctCountWitUsingSet(vector<int> const &input)
+{
+   
+    int distinct_count = (int)input.size();
+
+    int left = 0;
+    int right = (int)input.size() - 1;
+
+    while (left < right)
+    {
+
+        while (left < right && input[left] == input[left + 1])
+        {
+            distinct_count--;
+            left++;
+        }
+        while (right > left && input[right] == input[right - 1])
+        {
+            distinct_count--;
+            right--;
+        }
+ 
+  
+        if (left == right) {
+            break;
+        }
+ 
+        int sum = input[left] + input[right];
+
+        if (sum == 0)
+        {
+            distinct_count--;
+            left++;
+            right--;
+        }
+     
+        else if (sum < 0) {
+            left++;
+        }
+
+        else {
+            right--;
+        }
+    }
+ 
+    return distinct_count;
+}
 int main(int argc, const char * argv[])
 {
     SlidingWindow s;
@@ -298,5 +661,76 @@ int main(int argc, const char * argv[])
      
     s.findLongestSequence(arr1, n, k);
     cout<<"\n";
+    
+    /*Find minimum sum subarray of size `k`*/
+    cout<<"\n\nFind Find minimum sum subarray of size `k`\n\n";
+    int arr2[] = { 10, 4, 2, 5, 6, 3, 8, 1 };
+    k = 3;
+    n = sizeof(arr2)/sizeof(arr2[0]);
+    s.findSubarray(arr, n, k);
+    
+    //Find a subarray having the given sum in an integer array
+    int nums[] = { 2, 6, 0, 9, 7, 3, 1, 4, 1, 10 };
+    int target = 15;
+    cout<<"\n\nFind a subarray having the given sum "<<target<<" in an integer array\n\n";
+    n = sizeof(nums)/sizeof(nums[0]);
+     
+    s.findSubArrayGivenSum(nums, n, target);
+    
+    
+    /*
+        Find the smallest subarray length whose sum of elements is greater than `k`
+     */
+   
+    int array[] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+    k = 21;
+     
+    n = sizeof(array) / sizeof(array[0]);
+    cout<<"\n\nFind a subarray having the given sum "<<k<<" in an integer array\n\n";
+    len = s.findSmallestSubarrayLen(array, n, k);
+    
+    if (len != INT_MAX) {
+            printf("The smallest subarray length is %d\n\n\n", len);
+    }
+    else {
+            printf("No subarray exists\n");
+    }
+    
+    /*
+      Find the count of distinct elements in every subarray of size `k`
+     */
+    vector<int> input = { 2, 1, 2, 3, 2, 1, 4, 5 };
+    k = 5;
+    cout<<"\n\nFind the count of distinct elements in every subarray of size"<<k<<" in an integer Vector\n\n";
+    s.findDistinctCountUsingSet(input, k);
+    s.findDistinctCountUsingMap(input, k);
+    
+    /*
+     Print all subarrays of an array having distinct elements
+     */
+    cout<<"\n\nPrint all subarrays of an array having distinct elements \n\n";
+    int A[] = { 5, 2, 3, 5, 4, 3 };
+    n = sizeof A / sizeof A[0];
+    s.calculate(A, n);
+    
+    vector<int> input1 = { -1, -1, 0, 1, 1, 1 };
+    cout << "The total number of distinct absolute values is " << s.findDistinctCountUsingSet(input1)<<endl;
+    cout << "The total number of distinct absolute values is " << s.findDistinctCountWitUsingSet(input1)<<endl;
+    
+    /*
+     Find duplicates within a range `k` in an array
+     */
+    vector<int> input2 = { 5, 6, 8, 2, 4, 6, 9 };
+    k = 4;
+    
+    cout << "Find duplicates within a range `k` in an array"<<endl;
+    if (s.hasDuplicate(input2, k))
+    {
+            cout << "Duplicates found\n";
+    }
+    else
+    {
+            cout << "No duplicates were found\n";
+    }
     return 0;
 }
